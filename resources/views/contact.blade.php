@@ -17,7 +17,7 @@
 
     @endif --}}
 
-    <form method="post" action="{{ route('contact') }}">
+    <form method="post" action="{{ route('messages.store') }}">
 
         @csrf
 
