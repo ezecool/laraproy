@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,7 @@ class ProjectController extends Controller
         return view('projects.create');
     }
 
-    public function store() {
+    public function store(CreateProjectRequest $request) {
 
         /*         Project::create([
             'title' => request('title'),
@@ -60,13 +61,15 @@ class ProjectController extends Controller
         // Project::create(request()->all());
 
         // Validamos el formulario, y solo guardamos los campos validados
-        $fields = request()->validate([
+/*         $fields = request()->validate([
             'title' => 'required',
             'url' => 'required',
             'description' => 'required'
-        ]);
+        ]); */
 
-        Project::create($fields);
+        // La validacion va a ocurri automaticamente mediante el form request
+
+        Project::create($request->validated()); // En lugar de pasar todos los campos, pasamos solo los validados
 
         return redirect()->route('projects.index');
 
