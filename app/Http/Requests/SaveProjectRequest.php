@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /* Para usar esta clase para validar el form, la inyectamos en el metodo store del controlado */
-class CreateProjectRequest extends FormRequest
+class SaveProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
