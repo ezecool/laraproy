@@ -17,7 +17,7 @@ class MessageController extends Controller
 
         // El metodo validate, recibe un array con reglas de validacion. Nos devuelve a la pagina del formuario en caso de que la validacion falle.
         // Podemos pasa como segundo argumento, un array con los mensajes de error especificos para este formulario
-        request()->validate([
+        $mensaje = request()->validate([
             'name' => 'required',
             'email' => 'required|email', /* o ['required', 'email'] */
             'subject' => 'required',
@@ -26,9 +26,9 @@ class MessageController extends Controller
             'name.required' => __('I need your name')
         ]);
 
-        Mail::to('castroabreguhernan@gmail.com')->send(new MessageReceived);
+        Mail::to('castroabreguhernan@gmail.com')->queue(new MessageReceived($mensaje));
 
-        return 'Datos validados';
+        return redirect()->route('home')->with('status', 'Recibimos su mensaje, le responderemos a la brevedad.');
 
     }
 }

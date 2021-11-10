@@ -73,7 +73,7 @@ class ProjectController extends Controller
 
         Project::create($request->validated()); // En lugar de pasar todos los campos, pasamos solo los validados
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with('status', 'El proyecto fue creado correctamente.');
 
     }
 
@@ -87,11 +87,11 @@ class ProjectController extends Controller
 
         $project->update($request->validated());
 
-        return redirect()->route('projects.show', $project);
+        return redirect()->route('projects.show', $project)->with('status', 'El proyecto fue actualizado correctamente.');
     }
 
     public function destroy(Project $project) {
         $project->delete();
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with('status', 'El proyecto fue eliminado correctamente.');
     }
 }
