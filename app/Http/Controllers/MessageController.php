@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MessageReceived;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
 {
@@ -23,6 +25,8 @@ class MessageController extends Controller
         ], [
             'name.required' => __('I need your name')
         ]);
+
+        Mail::to('castroabreguhernan@gmail.com')->send(new MessageReceived);
 
         return 'Datos validados';
 
