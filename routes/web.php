@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Livewire\Productos;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home', ['nombre' => 'Hernan'])->name('home');
@@ -16,14 +17,17 @@ Route::view('/about', 'about')->name('about');
 //Route::put('/portfolio/{project}', 'ProjectController@update')->name('projects.update');
 //Route::delete('/portfolio/{project}', 'ProjectController@destroy')->name('projects.destroy');
 
-Route::resource('portafolio', 'ProjectController')->names('projects')->parameters(['portafolio' => 'project']);
+Route::resource('portafolio', ProjectController::class)->names('projects')->parameters(['portafolio' => 'project']);
 
 // Rutas de contacto //
 Route::view('/contact', 'contact')->name('contact');
 Route::post('/contact', 'MessageController@store')->name('messages.store');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
+Route::middleware(['auth:sanctum', 'verified'])->group(function() {
+    Route::get('/productos', Productos::class);
+    //Route::get('/productos', 'Productos@render');
+    Route::get('/dashboard', function() {
+        return view('dashboard');
+    })->name('dashboard');
+});
 ?>
